@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrabDeals Admin Panel Setup Guide</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: auto; padding: 20px; color: #333; }
+    h1, h2, h3 { color: #2c3e50; }
+    pre, code { background: #f4f4f4; padding: 8px; border-radius: 4px; overflow-x: auto; display: block; }
+    a { color: #2980b9; text-decoration: none; }
+    .screenshot { margin: 10px 0; text-align: center; }
+    .screenshot img { max-width: 100%; border: 1px solid #ddd; border-radius: 4px; }
+    .note { background: #e7f3fe; padding: 10px; border-left: 5px solid #2196F3; }
+    .warning { background: #fff3cd; padding: 10px; border-left: 5px solid #ffc107; }
+  </style>
+</head>
+<body>
+  <h1>🧹 GrabDeals Admin Panel - Hosting & Configuration Guide</h1>
+
+  <h2>1. Overview</h2>
+  <p>This guide explains how to set up, configure, and host the <strong>GrabDeals Admin Panel</strong>, which allows you to manage your mobile and web apps built with Firebase and Flutter. The admin panel is developed using HTML, CSS, JavaScript, and Bootstrap, and it connects directly with your Firebase project.</p>
+
+  <h2>2. What You'll Need</h2>
+  <ul>
+    <li>A Firebase account with a project already configured</li>
+    <li>The admin panel files (provided as a zip)</li>
+    <li>Access to a local server environment (XAMPP/WAMP) or shared hosting with cPanel</li>
+    <li>Basic file editing tool (e.g., Notepad++, VS Code)</li>
+  </ul>
+
+  <h2>3. How It Works</h2>
+  <p>The admin panel connects directly to your Firebase Realtime Database and Authentication system. Any changes you make in the admin panel (like adding deals or editing user data) are reflected in your GrabDeals mobile app and website immediately.</p>
+
+  <h2>4. Admin Panel Folder Structure</h2>
+  <ul>
+    <li><code>index.html</code> – Main login and dashboard page</li>
+    <li><code>firebase-config.js</code> – Firebase project configuration</li>
+    <li><code>/assets</code> – Contains CSS, JS, and images</li>
+    <li><code>/pages</code> – Additional sections (e.g., deals, users)</li>
+  </ul>
+
+  <h2>5. Firebase Configuration</h2>
+  <p>Edit <code>firebase-config.js</code> inside your admin panel folder:</p>
+  <pre><code>const firebaseConfig = {
+  apiKey: "AIzaSyCHMycHeMlqb2K-K6cwnPmuX9LGXeM-XAo",
+  authDomain: "flutter-affiliate.firebaseapp.com",
+  databaseURL: "https://flutter-affiliate-default-rtdb.firebaseio.com",
+  projectId: "flutter-affiliate",
+  storageBucket: "flutter-affiliate.firebasestorage.app",
+  messagingSenderId: "819914729440",
+  appId: "1:819914729440:web:515ef8ebebf10f0881ed85",
+};</code></pre>
+  <p>Save the file and refresh your browser to connect to Firebase.</p>
+
+  <h2>6. Local Access to Admin Panel</h2>
+  <ol>
+    <li>Copy the admin panel folder (e.g., <code>grabdeals_admin</code>) to your server root:
+      <ul>
+        <li><strong>XAMPP:</strong> <code>C:\xampp\htdocs</code></li>
+        <li><strong>WAMP:</strong> <code>C:\wamp64\www</code></li>
+      </ul>
+    </li>
+    <li>Rename the folder to something simple, e.g., <code>admin</code>.</li>
+    <li>Open your browser and visit:
+      <pre><code>http://localhost/admin/index.html</code></pre>
+    </li>
+    <li>If it was named <code>kamao_new</code>, you'd access it via:
+      <pre><code>http://localhost/kamao_new/index.html</code></pre>
+    </li>
+    <li>To change it, just rename the folder and access accordingly.
+      <pre><code>http://localhost/grabdeals_admin/index.html</code></pre>
+    </li>
+  </ol>
+
+  <h2>7. Upload to Shared Hosting (cPanel or Similar)</h2>
+  <ol>
+    <li>Zip your admin panel folder.</li>
+    <li>Login to your shared hosting account and go to <strong>cPanel > File Manager</strong>.</li>
+    <li>Navigate to <code>public_html/</code> or your preferred subdirectory.</li>
+    <li>Click <strong>Upload</strong>, then select and upload your ZIP file.</li>
+    <li>After upload, select the ZIP and click <strong>Extract</strong>.</li>
+    <li>Your admin panel will now be available at:
+      <ul>
+        <li>Main directory: <code>https://yourdomain.com/index.html</code></li>
+        <li>Subfolder: <code>https://yourdomain.com/admin/</code></li>
+      </ul>
+    </li>
+  </ol>
+
+  <h2>8. Admin Login Credentials</h2>
+  <p>Default login credentials for admin panel:</p>
+  <pre><code>Email: admin@admin.com
+Password: 123456</code></pre>
+
+  <h3>Creating a Demo User in Firebase Authentication</h3>
+  <ol>
+    <li>Go to your Firebase console.</li>
+    <li>Navigate to <strong>Authentication > Users</strong>.</li>
+    <li>Click <strong>Add user</strong>.</li>
+    <li>Enter the demo email <code>admin@admin.com</code> and password <code>123456</code>.</li>
+    <li>You may also create other user accounts as needed.</li>
+  </ol>
+  <p class="note">You can use any email and password combination. The one above is provided as a ready-to-use demo user.</p>
+
+  <h2>9. FAQ / Troubleshooting</h2>
+  <ul>
+    <li><strong>Q:</strong> I see a blank screen.<br><strong>A:</strong> Check browser console for Firebase connection errors. Make sure your config is correct.</li>
+    <li><strong>Q:</strong> Firebase data is not updating.<br><strong>A:</strong> Make sure correct databaseURL is set, and rules allow read/write.</li>
+    <li><strong>Q:</strong> Login fails.<br><strong>A:</strong> Ensure you've created <code>admin@admin.com</code> user in Firebase Authentication.</li>
+  </ul>
+
+  <h2>10. Security Tip</h2>
+  <div class="warning">
+    After initial setup, you should change the default admin credentials inside Firebase Authentication.<br>
+    Consider enabling email verification or 2FA if needed.
+  </div>
+
+</body>
+</html>

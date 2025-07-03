@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrabDeals Web - Setup & Configuration Guide</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: auto; padding: 20px; color: #333; }
+    h1, h2, h3 { color: #2c3e50; }
+    pre, code { background: #f4f4f4; padding: 8px; border-radius: 4px; overflow-x: auto; display: block; }
+    a { color: #2980b9; text-decoration: none; }
+    .screenshot { margin: 10px 0; text-align: center; }
+    .screenshot img { max-width: 100%; border: 1px solid #ddd; border-radius: 4px; }
+    .toc a { display: block; margin: 4px 0; }
+    .note { background: #e7f3fe; padding: 10px; border-left: 5px solid #2196F3; }
+    .warning { background: #fff3cd; padding: 10px; border-left: 5px solid #ffc107; }
+  </style>
+</head>
+<body>
+  <h1>🌐 GrabDeals Web (React + Firebase) - Setup & Deployment Guide</h1>
+
+  <p>This guide helps you set up, configure, and run the <strong>GrabDeals</strong> web app built using React + TypeScript + Firebase. It’s designed for non-technical users and works on both localhost and shared hosting servers.</p>
+
+  <h2>📑 Table of Contents</h2>
+  <div class="toc">
+    <a href="#intro">1. Introduction</a>
+    <a href="#prereq">2. Prerequisites</a>
+    <a href="#install">3. Install Environment</a>
+    <a href="#firebase">4. Firebase Setup</a>
+    <a href="#config">5. Configure Project</a>
+    <a href="#run">6. Run Locally</a>
+    <a href="#build">7. Build for Production</a>
+    <a href="#shared">8. Upload to Shared Hosting</a>
+    <a href="#troubleshoot">9. Troubleshooting</a>
+  </div>
+
+  <h2 id="intro">1. 📘 Introduction</h2>
+  <p>This guide assumes you have received the full GrabDeals website project in a zip file. The app is built with React (TypeScript) and uses Firebase (Realtime Database & Auth).</p>
+
+  <h2 id="prereq">2. ✅ Prerequisites</h2>
+  <ul>
+    <li>Node.js and npm (install from <a href="https://nodejs.org/">nodejs.org</a>)</li>
+    <li>Code Editor (VS Code recommended)</li>
+    <li>Firebase project access (or use the one provided)</li>
+    <li>FTP access or File Manager for shared hosting</li>
+  </ul>
+
+  <h2 id="install">3. 🧰 Install Environment</h2>
+  <ol>
+    <li>Download and install <a href="https://nodejs.org/">Node.js</a></li>
+    <li>Extract the zipped project folder</li>
+    <li>Open terminal/command prompt</li>
+    <li>Navigate to the project folder:
+<pre><code>cd path/to/project</code></pre></li>
+    <li>Install dependencies:
+<pre><code>npm install</code></pre></li>
+  </ol>
+
+  <h2 id="firebase">4. 🔥 Firebase Setup</h2>
+  <ol>
+    <li>Create a Firebase project at <a href="https://console.firebase.google.com">console.firebase.google.com</a></li>
+    <li>Enable Realtime Database & Authentication (Email/Password)</li>
+    <li>Create a user for testing
+<pre><code>Email: test@example.com
+Password: 123456</code></pre></li>
+    <li>Go to Project Settings > Web App > Register App > Get config</li>
+    <li>Copy config into:
+<pre><code>src/config/firebase.ts</code></pre></li>
+  </ol>
+
+  <h2 id="config">5. ⚙️ Configure Project</h2>
+  <ul>
+    <li>Open <code>src/config/firebase.ts</code></li>
+    <li>Replace <code>firebaseConfig</code> with your own values from Firebase</li>
+    <li>Save and close</li>
+  </ul>
+
+  <h2 id="run">6. ▶️ Run Locally</h2>
+  <ol>
+    <li>Start local dev server:
+<pre><code>npm run dev</code></pre></li>
+    <li>Open browser at <a href="http://localhost:5173">http://localhost:5173</a></li>
+    <li>Login using your Firebase test user</li>
+  </ol>
+
+  <h2 id="build">7. 📦 Build for Production</h2>
+  <ol>
+    <li>Run the build command:
+<pre><code>npm run build</code></pre></li>
+    <li>This creates a <code>dist</code> folder with all static files</li>
+  </ol>
+
+  <h2 id="shared">8. 🌍 Upload to Shared Hosting</h2>
+  <ol>
+    <li>Log into your shared hosting control panel (like cPanel)</li>
+    <li>Open File Manager or connect via FTP</li>
+    <li>Navigate to <code>public_html</code> or your site root</li>
+    <li>Upload contents of <code>dist</code> folder</li>
+    <li>Ensure <code>index.html</code> is directly in <code>public_html</code></li>
+    <li>Your site should now be live!</li>
+  </ol>
+
+  <h2 id="troubleshoot">9. 🧯 Troubleshooting</h2>
+  <ul>
+    <li><strong>Blank screen:</strong> Check Firebase config and hosting path</li>
+    <li><strong>404 errors:</strong> Ensure you're not nesting <code>dist</code> inside another folder</li>
+    <li><strong>Login fails:</strong> Verify Firebase rules and test user credentials</li>
+    <li><strong>JS/CSS not loading:</strong> Confirm all assets are uploaded and accessible</li>
+  </ul>
+</body>
+</html>
