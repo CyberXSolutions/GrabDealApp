@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrabDeals - Setup & Configuration Guide</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: auto; padding: 20px; color: #333; }
+    h1, h2, h3 { color: #2c3e50; }
+    pre, code { background: #f4f4f4; padding: 8px; border-radius: 4px; overflow-x: auto; display: block; }
+    a { color: #2980b9; text-decoration: none; }
+    .screenshot { margin: 10px 0; text-align: center; }
+    .screenshot img { max-width: 100%; border: 1px solid #ddd; border-radius: 4px; }
+    .toc a { display: block; margin: 4px 0; }
+    .note { background: #e7f3fe; padding: 10px; border-left: 5px solid #2196F3; }
+    .warning { background: #fff3cd; padding: 10px; border-left: 5px solid #ffc107; }
+  </style>
+</head>
+<body>
+  <h1>📘 GrabDeals - Setup & Configuration Guide</h1>
+
+  <p>This guide will help you install, configure, and run the <strong>GrabDeals</strong> Flutter app with Firebase and AdMob integration.</p>
+
+  <h2>📑 Table of Contents</h2>
+  <div class="toc">
+    <a href="#intro">1. Introduction</a>
+    <a href="#prereq">2. Prerequisites</a>
+    <a href="#flutter">3. Install Flutter</a>
+    <a href="#androidstudio">4. Install Android Studio</a>
+    <a href="#firebase">5. Firebase Setup & Authentication</a>
+    <a href="#configure">6. Configure & Reskin GrabDeals App</a>
+    <a href="#admob">7. Setup AdMob (Test Ads)</a>
+    <a href="#run">8. Run the App</a>
+    <a href="#admin">9. Admin Panel Configuration</a>
+    <a href="#deployment">10. Deployment Guide</a>
+    <a href="#troubleshoot">11. Troubleshooting</a>
+    <a href="#common">12. Common Mistakes & Fixes</a>
+    <a href="#support">13. Support & Resources</a>
+  </div>
+
+  <h2 id="intro">1. 📘 Introduction</h2>
+  <p>Welcome to GrabDeals! This guide walks you through setup, configuration, and deployment for Android & iOS. Most settings are manageable via the admin panel after setup.</p>
+
+  <h2 id="prereq">2. ✅ Prerequisites</h2>
+  <ul>
+    <li>Flutter SDK (compatible version from pubspec.lock)</li>
+    <li>Android Studio (or VS Code)</li>
+    <li>Firebase account</li>
+    <li>Google AdMob account (test mode supported)</li>
+  </ul>
+
+  <h2 id="flutter">3. 🧰 Install Flutter</h2>
+  <ol>
+    <li>Download the Flutter SDK from <a href="https://flutter.dev/docs/get-started/install">flutter.dev</a></li>
+    <li>Extract the ZIP to a directory like <code>C:\src\flutter</code> (Windows) or <code>~/development/flutter</code> (macOS/Linux)</li>
+    <li>Add the <code>flutter/bin</code> folder to your system PATH:
+      <ul>
+        <li>Windows: Search "Environment Variables" > Edit system environment variables > Add to PATH</li>
+        <li>macOS/Linux: Edit <code>~/.bashrc</code> or <code>~/.zshrc</code> and add:<br><code>export PATH="$PATH:\$HOME/development/flutter/bin"</code></li>
+      </ul>
+    </li>
+    <li>Open terminal or command prompt and run:
+      <pre><code>flutter doctor</code></pre>
+    </li>
+  </ol>
+  <div class="screenshot">
+    <img src="screenshots/flutter_doctor.png" alt="Flutter Doctor Output" />
+  </div>
+
+  <h2 id="androidstudio">4. 💻 Install Android Studio</h2>
+  <ol>
+    <li>Download from <a href="https://developer.android.com/studio">developer.android.com/studio</a></li>
+    <li>Install Flutter & Dart plugins:
+      <ul>
+        <li>Android Studio > Preferences > Plugins > Search "Flutter" > Install</li>
+        <li>Automatically installs Dart plugin</li>
+      </ul>
+    </li>
+    <li>Install SDK Tools:
+      <ul>
+        <li>Android Studio > Preferences > Android SDK > Install Platform Tools & Emulator</li>
+        <li>Also install a system image for Pixel 4+ with Play Store support</li>
+      </ul>
+    </li>
+    <li>Start an emulator or connect a device</li>
+  </ol>
+  <div class="screenshot">
+    <img src="screenshots/android_studio_sdk_setup.png" alt="Android Studio SDK Manager" />
+  </div>
+
+  <h2 id="firebase">5. 🔥 Firebase Setup & Authentication</h2>
+  <ol>
+    <li>Open <a href="https://console.firebase.google.com">Firebase Console</a> and create a project</li>
+    <li>Go to <strong>Realtime Database > ⋮ > Import JSON</strong> and upload the provided <code>firebase-export.json</code></li>
+    <li>Enable Email/Password Auth under <strong>Authentication > Sign-in method</strong></li>
+    <li>Add a test user:
+      <pre><code>Email: test@example.com
+Password: 123456</code></pre>
+    </li>
+    <li>Enable Firebase Realtime DB and paste these rules:
+      <pre><code>{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}</code></pre>
+    </li>
+  </ol>
+
+  <h2 id="configure">6. 🛠️ Configure & Reskin GrabDeals App</h2>
+  <ul>
+    <li><strong>App Name:</strong> Edit in <code>lib/Constants.dart</code>
+      <pre><code>static const String appName = 'GrabDeals';</code></pre>
+    </li>
+    <li><strong>Change App Icon:</strong>
+      <ul>
+        <li>Replace <code>images/logo.png</code> with your logo</li>
+        <li>In <code>pubspec.yaml</code>:
+<pre><code>flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/logo.png"</code></pre>
+        </li>
+        <li>Run:
+<pre><code>flutter pub get
+flutter pub run flutter_launcher_icons:main</code></pre>
+        </li>
+      </ul>
+    </li>
+    <li><strong>Rename Package:</strong>
+      <ul>
+        <li>Use rename plugin:
+<pre><code>flutter pub run rename --bundleId com.yourcompany.grabdeals</code></pre>
+        </li>
+        <li>iOS: Also update bundle ID via Xcode manually</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2 id="admob">7. 📱 Setup AdMob (Test Ads)</h2>
+  <p>No need to modify any code. The plugin is already integrated.</p>
+  <p>Use these test IDs via Admin Panel:</p>
+  <pre><code>App ID (Android): ca-app-pub-3940256099942544~3347511713
+Banner Ad ID: ca-app-pub-3940256099942544/6300978111
+Interstitial Ad ID: ca-app-pub-3940256099942544/1033173712</code></pre>
+  <p><strong>💡 Using Real AdMob IDs</strong><br>
+  To monetize your app, replace test IDs with your live AdMob IDs:
+    <ol>
+      <li>Go to <a href="https://apps.admob.com">AdMob Console</a></li>
+      <li>Create a new app (Android/iOS)</li>
+      <li>Create ad units like Banner, Interstitial</li>
+      <li>Copy App ID & Ad Unit IDs</li>
+      <li>Paste them into the Admin Panel under the Ads section</li>
+    </ol>
+    <p><span class="warning">⚠️ Use test IDs during development to avoid AdMob suspension.</span></p>
+  </p>
+
+  <h2 id="run">8. ▶️ Run the App</h2>
+  <ol>
+    <li>Extract the provided project zip</li>
+    <li>Run <code>flutter pub get</code></li>
+    <li>Run the app:
+      <pre><code>flutter run</code></pre>
+    </li>
+    <li>Login using the test user credentials</li>
+  </ol>
+
+  <h2 id="admin">9. 🧩 Admin Panel Configuration</h2>
+  <p>The admin panel lets you update:</p>
+  <ul>
+    <li>AdMob IDs (production & test)</li>
+    <li>App name, contact info</li>
+    <li>Promoted deals, banners, versions</li>
+  </ul>
+  <p>Admin panel URL and login details are included with your download package.</p>
+
+  <h2 id="deployment">10. 📦 Deployment Guide</h2>
+  <ul>
+    <li><strong>Android:</strong> Run:
+      <pre><code>flutter build apk --release</code></pre>
+    </li>
+    <li><strong>iOS:</strong> Open project in Xcode and archive → Upload to App Store</li>
+    <li>Update Firebase rules for production if needed</li>
+  </ul>
+
+  <h2 id="troubleshoot">11. 🧯 Troubleshooting</h2>
+  <ul>
+    <li>Flutter plugin issues → Run <code>flutter clean</code></li>
+    <li>Build failed? Check SDK version in <code>android/build.gradle</code></li>
+    <li>iOS errors? Open in Xcode and verify signing config</li>
+  </ul>
+
+  <h2 id="common">12. 🧠 Common Mistakes & Fixes</h2>
+  <ul>
+    <li>Missing Firebase import → Always check <code>google-services.json</code> is present</li>
+    <li>AdMob shows blank? → Use test ads first</li>
+    <li>Launcher icon didn’t change? → Rebuild project</li>
+  </ul>
+
+  <h2 id="support">13. 🆘 Support & Resources</h2>
+  <ul>
+    <li><a href="https://flutter.dev">Flutter Documentation</a></li>
+    <li><a href="https://firebase.google.com/docs">Firebase Docs</a></li>
+    <li>Contact via your Codecanyon purchase page</li>
+  </ul>
+</body>
+</html>
