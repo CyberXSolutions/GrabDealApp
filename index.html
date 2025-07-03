@@ -2,61 +2,136 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GrabDeal Documentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrabDeal Documentation Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #4f46e5;
+      --secondary-color: #6366f1;
+      --accent-color: #a78bfa;
+      --bg-color: #f9fafb;
+      --text-color: #111827;
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Inter', sans-serif;
       margin: 0;
-      padding: 2rem;
-      background-color: #f8f9fa;
-      color: #333;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 80px 20px 60px;
       text-align: center;
     }
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 1.5rem;
+
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+      font-weight: 700;
     }
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 400px;
+
+    header p {
+      font-size: 1.25rem;
+      margin-top: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
       margin: auto;
+      padding: 60px 20px;
     }
-    a.button {
-      display: block;
-      padding: 1rem;
-      background-color: #3498db;
-      color: #fff;
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+
+    .card p {
+      color: #4b5563;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 20px 0;
+    }
+
+    .card a {
+      display: inline-block;
+      padding: 12px 26px;
+      background: var(--secondary-color);
+      color: white;
+      font-weight: 600;
+      border-radius: 12px;
       text-decoration: none;
-      font-size: 1.1rem;
-      border-radius: 8px;
-      transition: background 0.3s;
+      transition: background 0.3s ease;
     }
-    a.button:hover {
-      background-color: #2980b9;
+
+    .card a:hover {
+      background: var(--accent-color);
     }
+
     footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #777;
+      background: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 30px 15px;
+      font-size: 1rem;
+      margin-top: 60px;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>📘 GrabDeal Documentation</h1>
+    <p>Centralized setup guides for your app, website, and admin panel — made easy.</p>
+  </header>
 
-  <h1>📚 GrabDeal App Documentation</h1>
-
-  <div class="button-container">
-    <a href="doc.html" class="button">📱 App Setup Guide</a>
-    <a href="website-guide.html" class="button">🌐 Website Installation Guide</a>
-    <a href="adminpanel-guide.html" class="button">🛠️ Admin Panel Setup Guide</a>
+  <div class="container">
+    <div class="card-grid">
+      <div class="card">
+        <h3>📱 App Documentation</h3>
+        <p>Step-by-step instructions to configure and launch your mobile app using Flutter and Firebase.</p>
+        <a href="doc.html">View App Guide</a>
+      </div>
+      <div class="card">
+        <h3>🌐 Website Setup Guide</h3>
+        <p>Complete instructions to set up, host, and run the React + Firebase-based GrabDeal website.</p>
+        <a href="website-guide.html">View Website Guide</a>
+      </div>
+      <div class="card">
+        <h3>🛠️ Admin Panel Setup</h3>
+        <p>Deploy and configure the HTML/CSS admin panel easily on a shared hosting server with Firebase.</p>
+        <a href="adminpanel-guide.html">View Admin Panel Guide</a>
+      </div>
+    </div>
   </div>
 
   <footer>
-    Created by CyberXSolutions — Hosted via GitHub Pages
+    &copy; 2025 GrabDeal by CyberX Solutions. All rights reserved.
   </footer>
-
 </body>
 </html>
